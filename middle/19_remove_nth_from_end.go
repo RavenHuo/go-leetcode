@@ -5,20 +5,16 @@
  **/
 package main
 
-import (
-	"fmt"
-)
-
-func main() {
-	l := removeNthFromEnd(buildListNodeByArr([]int{2, 4, 3, 5, 6, 7}), 1)
-	for {
-		if l == nil {
-			break
-		}
-		fmt.Println(l.Val)
-		l = l.Next
-	}
-}
+//func main() {
+//	l := removeNthFromEnd(buildListNodeByArr([]int{2, 4, 3, 5, 6, 7}), 1)
+//	for {
+//		if l == nil {
+//			break
+//		}
+//		fmt.Println(l.Val)
+//		l = l.Next
+//	}
+//}
 
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	listVal := make([]int, 0)
