@@ -5,6 +5,10 @@
  **/
 package main
 
+import (
+	"fmt"
+)
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -25,4 +29,23 @@ func buildListNodeByArr(list []int) *ListNode {
 		}
 	}
 	return result
+}
+
+func main() {
+	h := buildListNodeByArr([]int{1, 2, 3, 4})
+	reverseLinkedList(h)
+	fmt.Printf("%+v", h)
+}
+
+func reverseLinkedList(head *ListNode) {
+	var nextPoint *ListNode
+	point := head
+
+	for point != nil {
+		v := point.Val
+		node := &ListNode{Val: v, Next: nextPoint}
+		nextPoint = node
+		point = point.Next
+	}
+	head = nextPoint
 }
