@@ -30,7 +30,6 @@ func InitSafeList() *SafeList {
 // 新增一个节点在队尾
 func (s *SafeList) Push(t interface{}) {
 	s.mutex.Lock()
-	rwLock := &sync.Map{}
 	defer s.mutex.Unlock()
 	s.list.PushBack(t)
 }
