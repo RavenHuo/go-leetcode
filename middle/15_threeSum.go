@@ -55,8 +55,6 @@ func threeSum(nums []int) [][]int {
 	})
 
 	result := make([][]int, 0)
-	// 去重的map
-	resultMap := make(map[string]struct{})
 	for i := 0; i < len(nums); i++ {
 		// 假如是最左边的key都大于0，那后面也都大于0
 		if nums[i] > 0 {
@@ -76,14 +74,15 @@ func threeSum(nums []int) [][]int {
 			// 左右指针相加
 			sum := nums[left] + nums[right]
 			if nums[i]+sum == 0 { // =0还是要移动指针
-				// 去重的key
-				s := toString(nums[i], nums[left], nums[right])
+				result = append(result, []int{nums[i], nums[left], nums[right]})
 				// 左指针向右移动的时候，nums[left+1] == nums[left]的时候，需要去重
-				if _, ok := resultMap[s]; !ok {
-					result = append(result, []int{nums[i], nums[left], nums[right]})
-					resultMap[s] = struct{}{}
+				for left < len(nums)-1 && nums[left] == nums[left+1] {
+					left++
 				}
-
+				// 右指针向左移动的时候，nums[right] == nums[right-1]的时候，需要去重
+				for right > 1 && nums[right] == nums[right-1] {
+					right--
+				}
 				left++
 				right--
 			} else if nums[i]+sum < 0 { // sum 小于零，那就是左指针要左移
