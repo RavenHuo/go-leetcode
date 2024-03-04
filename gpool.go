@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"sync"
 	"time"
 )
@@ -27,17 +28,14 @@ func NewPool(size int) *pool {
 }
 
 func (p *pool) Add(delta int) {
-	//for i := 0; i < delta; i++ {
-	//	p.queue <- 1
-	//}
-	//for i := 0; i > delta; i-- {
-	//	<-p.queue
-	//}
+	for i := 0; i < delta; i++ {
+		p.queue <- 1
+	}
 	p.wg.Add(delta)
 }
 
 func (p *pool) Done() {
-	//<-p.queue
+	<-p.queue
 	p.wg.Done()
 }
 
@@ -48,9 +46,15 @@ func main() {
 	p := NewPool(1)
 	p.Add(1)
 	go func() {
-		time.Sleep(10 * time.Minute)
+		time.Sleep(1 * time.Second)
+		fmt.Println("goroutine 1")
 		p.Done()
 	}()
 	p.Add(1)
+	go func() {
+		time.Sleep(1 * time.Second)
+		fmt.Println("goroutine 2")
+		p.Done()
+	}()
 	p.Wait()
 }
