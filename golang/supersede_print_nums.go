@@ -10,46 +10,42 @@ import (
 // ch2 print双数
 func main() {
 	wg := &sync.WaitGroup{}
-	c := 0
-	// 通过ch通知
-	ch1 := make(chan struct{})
-	ch2 := make(chan struct{})
+	count := 0
+	ch1 := make(chan int)
+	ch2 := make(chan int)
+	wg.Add(1)
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
 		for {
 			select {
 			case <-ch1:
-				if c >= 100 {
-					// 通知ch2关闭
+				if count >= 100 {
 					close(ch2)
 					return
 				}
-				c++
-				fmt.Println(c)
-				ch2 <- struct{}{}
+				count++
+				fmt.Println(count)
+				ch2 <- 1
 			}
 		}
 	}()
-	wg.Add(1)
+
 	go func() {
 		defer wg.Done()
 		for {
-
 			select {
 			case <-ch2:
-				if c >= 100 {
-					// 通知ch1关闭
+				if count >= 100 {
 					close(ch1)
 					return
 				}
-				c++
-				fmt.Println(c)
-				ch1 <- struct{}{}
+				count++
+				fmt.Println(count)
+				ch1 <- 1
 			}
 		}
 	}()
-	ch1 <- struct{}{}
+	ch1 <- 1
 	wg.Wait()
-
 }

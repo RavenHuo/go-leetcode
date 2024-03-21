@@ -5,8 +5,11 @@ import (
 	"sort"
 )
 
+// [a,b] [c,d]
+// c>=a && d<=b 包含关系
+// d>=a && b>=c 交集
 func merge(intervals [][]int) [][]int {
-	result := make([][]int, 0, len(intervals))
+	result := make([][]int, 0)
 	if len(intervals) == 0 {
 		return result
 	}
@@ -16,21 +19,19 @@ func merge(intervals [][]int) [][]int {
 	sort.Slice(intervals, func(i, j int) bool {
 		return intervals[i][0] < intervals[j][0]
 	})
-	preStart := intervals[0][0]
-	preEnd := intervals[0][1]
-
+	firstArr := intervals[0]
+	preStart := firstArr[0]
+	preEnd := firstArr[1]
 	result = append(result, []int{preStart, preEnd})
 	preIndex := 0
-
 	for i := 1; i < len(intervals); i++ {
-
 		start := intervals[i][0]
 		end := intervals[i][1]
-		if start >= preStart && end <= preEnd {
+		if preStart <= start && end <= preEnd { // 包含
 			continue
-		} else if end >= preStart && preEnd >= start { // 交集
-			result[preIndex] = []int{preStart, end}
-			preEnd = end // 更新
+		} else if preStart <= end && preEnd >= start { // 交集
+			result[preIndex][1] = end
+			preEnd = end
 		} else {
 			result = append(result, []int{start, end})
 			preStart = start

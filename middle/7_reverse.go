@@ -11,25 +11,24 @@ import (
 	"strconv"
 )
 
+// 给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。
+//
+// 如果反转后整数超过 32 位的有符号整数的范围 [−231,  231 − 1] ，就返回 0。
 func reverse(x int) int {
-	strx := strconv.Itoa(int(math.Abs(float64(x))))
-
-	firstNumFlag := false
-	result := ""
-	for i := len(strx) - 1; i >= 0; i-- {
-		item, _ := strconv.Atoi(string(strx[i]))
-		if item == 0 && !firstNumFlag {
-			firstNumFlag = true
+	str := strconv.Itoa(int(math.Abs(float64(x))))
+	reverStr := ""
+	for i := len(str) - 1; i >= 0; i-- {
+		isZero, _ := strconv.Atoi(string(str[i]))
+		if i == 0 && isZero == 0 {
 			continue
 		}
-		firstNumFlag = true
-		result = result + string(strx[i])
+		reverStr += string(str[i])
 	}
-	r, _ := strconv.Atoi(result)
+	r, _ := strconv.Atoi(reverStr)
 	if x < 0 {
 		r = -r
 	}
-	if r > math.MaxInt32 || r < -math.MaxInt32 {
+	if r > math.MaxInt32 || r < math.MinInt32 {
 		return 0
 	}
 	return r

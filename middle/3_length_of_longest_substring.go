@@ -11,26 +11,26 @@ import "fmt"
 // 给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。
 // https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
 func lengthOfLongestSubstring(s string) int {
-	if len(s) <= 1 {
+	if len(s) == 0 || len(s) == 1 {
 		return len(s)
 	}
 	i := 0
 	j := i + 1
 	result := 0
-
 	for {
 		if j > len(s) {
 			break
 		}
 		subStr := s[i:j]
+		// 有重复
 		if checkRepeatStr(subStr) {
-			// 左边移到一下
-			i++
-			if i >= j {
+			if i < j {
+				i++
+			} else {
 				j++
 			}
 		} else {
-			if (j - i) > result {
+			if j-i > result {
 				result = j - i
 			}
 			j++

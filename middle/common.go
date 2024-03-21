@@ -9,11 +9,6 @@ import (
 	"fmt"
 )
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
 func buildListNodeByArr(list []int) *ListNode {
 	var header *ListNode
 	var result *ListNode
