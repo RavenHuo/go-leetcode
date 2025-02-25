@@ -9,20 +9,19 @@ import (
 // 输入：strs = ["flower","flow","flight"]
 // 输出："fl"
 func longestCommonPrefix(strs []string) string {
-	commonPrefix := ""
+	result := ""
 	if len(strs) == 0 {
-		return commonPrefix
+		return result
 	}
 	for i := 1; i <= len(strs[0]); i++ {
-		prefix := strs[0][:i]
+		result = strs[0][:i]
 		for j := 1; j < len(strs); j++ {
-			if !strings.HasPrefix(strs[j], prefix) {
-				return commonPrefix
+			if !strings.HasPrefix(strs[j], result) {
+				return result
 			}
 		}
-		commonPrefix = prefix
 	}
-	return commonPrefix
+	return result
 }
 
 func main() {

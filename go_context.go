@@ -12,6 +12,10 @@ import (
 )
 
 func main() {
+	ch := make(chan int, 10)
+	ch <- 1
+	i := <-ch
+	println(i)
 	ctx, _ := context.WithTimeout(context.Background(), time.Second)
 	defer func() {
 		fmt.Println("hello")

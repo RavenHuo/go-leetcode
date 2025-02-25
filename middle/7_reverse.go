@@ -16,15 +16,15 @@ import (
 // 如果反转后整数超过 32 位的有符号整数的范围 [−231,  231 − 1] ，就返回 0。
 func reverse(x int) int {
 	str := strconv.Itoa(int(math.Abs(float64(x))))
-	reverStr := ""
+	reverseStr := ""
 	for i := len(str) - 1; i >= 0; i-- {
-		isZero, _ := strconv.Atoi(string(str[i]))
-		if i == 0 && isZero == 0 {
+		zero, _ := strconv.Atoi(string(str[i]))
+		if zero == 0 {
 			continue
 		}
-		reverStr += string(str[i])
+		reverseStr += string(str[i])
 	}
-	r, _ := strconv.Atoi(reverStr)
+	r, _ := strconv.Atoi(reverseStr)
 	if x < 0 {
 		r = -r
 	}
@@ -35,5 +35,5 @@ func reverse(x int) int {
 }
 
 func main() {
-	fmt.Println(reverse(123))
+	fmt.Println(reverse(1230))
 }

@@ -44,3 +44,24 @@ func reverseLinkedList(head *ListNode) {
 	}
 	head = nextPoint
 }
+
+func app(l1 *ListNode) *ListNode {
+	var header *ListNode
+	var tail *ListNode
+	for {
+		if l1 == nil {
+			break
+		}
+		val := &ListNode{
+			Val: l1.Val,
+		}
+		if header == nil {
+			header = val
+			tail = val
+		} else {
+			tail.Next = val
+			tail = tail.Next
+		}
+	}
+	return header
+}

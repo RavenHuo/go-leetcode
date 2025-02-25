@@ -6,6 +6,7 @@
 package main
 
 import (
+	"context"
 	"sync"
 )
 
@@ -18,6 +19,7 @@ func main() {
 	//rwLock.RUnlock()
 	wp := sync.WaitGroup{}
 	once := sync.Once{}
+	ctx := context.Background()
 	m := sync.Map{}
 	m.Delete()
 }

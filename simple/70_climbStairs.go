@@ -39,12 +39,12 @@ func main() {
 
 func climbStairs(n int) int {
 	if n == 1 {
-		return 1
+		return n
 	}
 	if n == 2 {
-		return 2
+		return n
 	}
-	climbArr := make([]int, n, n)
+	climbArr := make([]int, 0)
 	climbArr[0] = 1
 	climbArr[1] = 2
 	for i := 2; i < n; i++ {
