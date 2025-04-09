@@ -1,6 +1,8 @@
 module go-leetcode
 
-go 1.17
+go 1.22
+
+toolchain go1.22.0
 
 require (
 	github.com/RoaringBitmap/roaring v0.6.1
@@ -13,4 +15,5 @@ require (
 	github.com/mschoch/smat v0.0.0-20160514031455-90eadee771ae // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/willf/bitset v1.1.10 // indirect
+	google.golang.org/protobuf v1.36.6 // indirect
 )
