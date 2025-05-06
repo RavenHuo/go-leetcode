@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -34,14 +32,4 @@ func detectCycle(head *ListNode) *ListNode {
 		}
 	}
 	return nil
-}
-
-func main() {
-	fmt.Println("hello")
-
-	n := &ListNode{Val: 1}
-	n.Next = &ListNode{Val: 2, Next: &ListNode{Val: 3, Next: &ListNode{Val: 4, Next: n}}}
-	l := n
-	fmt.Println(l.Val)
-	fmt.Println(detectCycle(l))
 }
