@@ -1,10 +1,5 @@
 package main
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	rmap := make(map[*ListNode]struct{})
 	for headA != nil {
