@@ -9,7 +9,7 @@ func lengthOfLongestSubstring(s string) int {
 	chars := []byte(s)
 	i := 0
 	j := 0
-	for i > len(s)-1 {
+	for i <= len(s)-1 {
 		char := chars[i]
 		_, ok := m[char]
 		if !ok {
@@ -23,6 +23,7 @@ func lengthOfLongestSubstring(s string) int {
 			for i > j {
 				if chars[j] == char {
 					j++
+					i++
 					break
 				}
 				delete(m, chars[j])
