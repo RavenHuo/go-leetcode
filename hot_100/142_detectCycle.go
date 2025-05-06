@@ -1,10 +1,5 @@
 package main
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
 // 快慢指针：
 /*
    1. 快指针每次走两步，慢指针每次走一步
