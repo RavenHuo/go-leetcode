@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+	"time"
+)
 
 // 动态规划
 // 53. 最大子数组和
@@ -31,5 +35,16 @@ func maxNum(n, m int) int {
 }
 
 func main() {
-	fmt.Println(maxSubArray([]int{5, 4, -1, 7, 8}))
+	wg := &sync.WaitGroup{}
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		time.Sleep(time.Second)
+	}()
+	go func() {
+		wg.Wait()
+		fmt.Println("go wg wait ")
+	}()
+	fmt.Println("main wg wait ")
+	time.Sleep(time.Second)
 }
