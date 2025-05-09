@@ -6,53 +6,17 @@ import (
 )
 
 type LRUCache struct {
-	lock    *sync.RWMutex
-	cap     int
-	itemMap map[string]*list.Element
-	list    *list.List
+	m     map[string]*list.Element
+	l     *list.List
+	count int // 容量
+	lock  *sync.Mutex
 }
 
-func NewLruCache(cap int) *LRUCache {
+func NewLru(count int) *LRUCache {
 	return &LRUCache{
-		lock:    &sync.RWMutex{},
-		cap:     cap,
-		itemMap: make(map[string]*list.Element),
-		list:    list.New(),
+		m:     make(map[string]*list.Element),
+		l:     list.New(),
+		count: count,
+		lock:  &sync.Mutex{},
 	}
-}
-
-func (c *LRUCache) add(key string, value interface{}) {
-	c.lock.Lock()
-	defer c.lock.Unlock()
-	item, ok := c.itemMap[key]
-	if ok {
-		item.Value = value
-		c.list.MoveToFront(item)
-		c.itemMap[key] = item
-	} else {
-		item = &list.Element{
-			Value: value,
-		}
-		if c.list.Len() > c.cap {
-			c.list.Remove(c.list.Back())
-		}
-		c.itemMap[key] = item
-		c.list.PushFront(item)
-	}
-}
-func (c *LRUCache) Get(key string) interface{} {
-	c.lock.RLock()
-	defer c.lock.RUnlock()
-	return c.itemMap[key]
-}
-
-func (c *LRUCache) Remove(key string) {
-	c.lock.Lock()
-	defer c.lock.Unlock()
-	item, ok := c.itemMap[key]
-	if !ok {
-		return
-	}
-	c.list.Remove(item)
-	delete(c.itemMap, key)
 }
