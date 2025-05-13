@@ -2,41 +2,39 @@ package main
 
 import "fmt"
 
+// 前缀和+两数之和
 func subarraySum(nums []int, k int) int {
-	c := 0
 	if len(nums) == 0 {
-		return c
+		return 0
 	}
 	if len(nums) == 1 && nums[0] == k {
 		return 1
 	}
-	i := 1
-	j := 0
-	for i < len(nums) && j < len(nums) {
-		subn := 0
-		for n := j; n <= i; n++ {
-			subn += nums[n]
+	c := 0
+	rMap := make(map[int]int)
+	rMap[0] = nums[0]
+	for i := 1; i < len(nums); i++ {
+		if nums[i] == k {
+			c++
+			rMap[i] = nums[i]
+			continue
 		}
-		if subn < k {
-			if nums[i] > 0 {
-				i++
-			} else {
-				j++
-			}
-		} else if subn == k {
-			j++
-			i++
-			c += 1
-		} else if subn > k {
-			j++
+		if rMap[i-1]+nums[i] < rMap[i-1] {
+			rMap[i] = nums[i]
+			continue
 		}
-		if i < j {
-			i++
+		if rMap[i-1]+nums[i] == k {
+			c++
+			rMap[i] = nums[i]
+		} else if rMap[i-1]+nums[i] < k {
+			rMap[i] = rMap[i-1] + nums[i]
+		} else if rMap[i-1]+nums[i] > k {
+			rMap[i] = nums[i]
 		}
 	}
 	return c
 }
 
 func main() {
-	fmt.Println(subarraySum([]int{-1, -1, 1}, 0))
+	fmt.Println(subarraySum([]int{-1, -1, 1}, 1))
 }
