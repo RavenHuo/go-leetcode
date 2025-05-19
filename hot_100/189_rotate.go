@@ -1,19 +1,16 @@
 package main
 
 func rotate(nums []int, k int) {
-	if len(nums) == 0 || len(nums) == 1 {
-		return
-	}
-	i := k%len(nums) + 1
-	j := 0
-	for i < len(nums) {
-		n := nums[i]
-		nums[i] = nums[j]
-		nums[j] = n
+	i := 0
+	for i < k {
+		// 先交换，再依次往前推
+		n := nums[len(nums)-1]
+		for k := len(nums) - 1; k > 0; k-- {
+			nums[k] = nums[k-1]
+		}
+		nums[0] = n
 		i++
-		j++
 	}
-	rotate(nums[k:], 1)
 }
 func main() {
 	rotate([]int{1, 2, 3, 4, 5, 6, 7}, 3)
