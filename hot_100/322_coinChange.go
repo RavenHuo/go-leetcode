@@ -25,13 +25,6 @@ func coinChange(coins []int, amount int) int {
 	return nums[amount]
 }
 
-func minInt(a, b int) int {
-	if a > b {
-		return b
-	}
-	return a
-}
-
 func main() {
 	coinChange([]int{2}, 3)
 }

@@ -24,10 +24,3 @@ func rob(nums []int) int {
 	}
 	return m
 }
-
-func maxInt(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
